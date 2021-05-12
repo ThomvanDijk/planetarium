@@ -1,6 +1,6 @@
-import { Canvas, useFrame } from '@react-three/fiber'
+import { useFrame } from '@react-three/fiber'
 import { Suspense, useRef } from 'react'
-// import { ARCanvas } from '@react-three/xr'
+import { ARCanvas } from '@react-three/xr'
 import { OrbitControls, useTexture, Sphere } from '@react-three/drei'
 
 import moon_texture from './assets/textures/moon.png'
@@ -14,14 +14,14 @@ function Moon(props) {
     <>
       {/* <ambientLight intensity={0.2} />
       <directionalLight /> */}
-      <Sphere {...props} args={[1, 32, 32]} >
+      <Sphere {...props} args={[0.2, 32, 32]} >
         <meshBasicMaterial map={texture} />
       </Sphere>
     </>
   )
 }
 
-function Earth() {
+function Earth(props) {
   const texture = useTexture(earth_texture)
   const clouds_texture = useTexture(earth_clouds_texture)
 
@@ -35,10 +35,10 @@ function Earth() {
     <>
       {/* <ambientLight intensity={0.2} />
       <directionalLight /> */}
-      <Sphere args={[4, 64, 64]} >
+      <Sphere {...props} args={[0.4, 64, 64]} >
         <meshBasicMaterial map={texture}/>
       </Sphere>
-      <Sphere ref={ref} args={[4.05, 64, 64]} >
+      <Sphere {...props} ref={ref} args={[0.43, 64, 64]} >
         <meshBasicMaterial alphaMap={clouds_texture} transparent/>
       </Sphere>
     </>
@@ -47,15 +47,15 @@ function Earth() {
 
 function App() {
   return (
-    <Canvas>
+    <ARCanvas>
       {/* <ambientLight /> */}
       {/* <pointLight position={[10, 10, 10]} /> */}
       <Suspense fallback={null}>
-        <Moon position={[4, 4, 4]}/>
-        <Earth />
+        <Moon position={[0, 0, -4]}/>
+        <Earth position={[0, 0, -1]}/>
         <OrbitControls/>
       </Suspense>
-    </Canvas>
+    </ARCanvas>
   );
 }
 
