@@ -1,0 +1,11 @@
+Model Information:
+* title:	U.F.O.
+* source:	https://sketchfab.com/3d-models/ufo-ef687f700ed64686834aaa912ac0e70f
+* author:	SpiderCraft9972 (https://sketchfab.com/oscar.lopez.riviello)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "U.F.O." (https://sketchfab.com/3d-models/ufo-ef687f700ed64686834aaa912ac0e70f) by SpiderCraft9972 (https://sketchfab.com/oscar.lopez.riviello) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
