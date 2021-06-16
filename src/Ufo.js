@@ -23,13 +23,15 @@ export default function Model(props) {
 
   const handleClick = useCallback(e => {
     hover = !hover
-    console.log(hover)
+
     if (hover) {
       actions.abduction_rings.stop()
       actions.hover.play()
+      group.current.position.y += 0.2 // Animation offset, blame the artist
     } else {
       actions.hover.stop()
       actions.abduction_rings.play()
+      group.current.position.y -= 0.2
     }
   })
 
