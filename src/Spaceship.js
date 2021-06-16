@@ -13,30 +13,31 @@ import { useFrame } from '@react-three/fiber';
 
 export default function Model(props) {
   const group = useRef()
-  const { nodes, materials } = useGLTF('assets/space_ship/scene.gltf')
-  let newRotation = 0
+  const { nodes, materials } = useGLTF('assets/spaceship/scene.gltf')
+
+  const rotationOffset = 1
+  let new_rotation = 2 * Math.PI - rotationOffset
   const radius = 3
 
   useFrame(({ clock }) => {
-    const a = clock.getElapsedTime() / 2;
+    // Move spaceship horizontally around the given position on the x and z plane
+    const angle = clock.getElapsedTime() / 2;
+    group.current.position.x = props.position[0] + Math.sin(angle) * radius
+    group.current.position.z = props.position[2] + Math.cos(angle) * radius
 
-    // Move rocket around a point
-    group.current.position.x = 0 + Math.sin(a) * radius
-    group.current.position.z = -1 + Math.cos(a) * radius
+    // Rotate spaceship towards the origin of the rotation
+    const rotation_y = Math.atan2(props.position[0] - group.current.position.x, props.position[2] - group.current.position.z)
+    group.current.rotation.y = rotation_y - Math.PI / 2
 
-    // Rotate rocket towards center
-    let angle = Math.atan2(-1 - group.current.position.x, 0 - group.current.position.z)
-    // console.log(angle)
-    group.current.rotation.y = angle - Math.PI / 2
-
-    if (group.current.rotation.z <= newRotation) {
+    // Rotate spaceship if clicked
+    if (group.current.rotation.z <= new_rotation) {
       group.current.rotation.z += 0.1
     }
   });
 
   const handleClick = useCallback(e => {
-    console.log(group.current.rotation.z)
-    newRotation = group.current.rotation.z + 2 * Math.PI
+    // Set a new rotation for the spaceship to rotate to
+    new_rotation = group.current.rotation.z + 2 * Math.PI
   })
 
   return (
@@ -52,4 +53,4 @@ export default function Model(props) {
   )
 }
 
-useGLTF.preload('assets/space_ship/scene.gltf')
+useGLTF.preload('assets/spaceship/scene.gltf')

@@ -3,11 +3,11 @@ import { Suspense, useRef } from 'react'
 // import { ARCanvas } from '@react-three/xr'
 import { OrbitControls, useTexture, Sphere, useGLTF } from '@react-three/drei'
 
-import moon_texture from './assets/textures/moon.png'
-import earth_texture from './assets/textures/earth.jpg'
-import earth_clouds_texture from './assets/textures/earth_clouds.jpg'
+// import moon_texture from 'assets/textures/moon.png'
+// import earth_texture from 'assets/textures/earth.jpg'
+// import earth_clouds_texture from 'assets/textures/earth_clouds.jpg'
 
-import Rocket from './Rocket'
+import Spaceship from './Spaceship'
 import Yeti from './Yeti'
 import Ufo from './Ufo'
 import Foguete from './Foguete'
@@ -15,7 +15,7 @@ import Foguete from './Foguete'
 const earth_diameter = 0.4
 
 function Moon(props) {
-  const texture = useTexture(moon_texture)
+  const texture = useTexture('assets/textures/moon.png')
 
   // The radius of the moon is 27 percent the size of earth
   const diameter = earth_diameter * 0.27
@@ -28,8 +28,8 @@ function Moon(props) {
 }
 
 function Earth(props) {
-  const texture = useTexture(earth_texture)
-  const clouds_texture = useTexture(earth_clouds_texture)
+  const texture = useTexture('assets/textures/earth.jpg')
+  const clouds_texture = useTexture('assets/textures/earth_clouds.jpg')
 
   // Cloud height is around 12 km at it's highest point.
   // Earths diameter is 12,756 km at the equator.
@@ -79,7 +79,7 @@ function App() {
         <Earth position={[0, 0, -1]}/>
 
         {/* <Foguete position={[0, 0, -1]} scale={0.01}/> */}
-        <Rocket position={[0, 0, -1]} scale={0.1}/>
+        <Spaceship position={[0, 0, -1]} scale={0.1}/>
         <Ufo position={[0, 0, -4]} scale={0.25}/>
         <OrbitControls/>
       </Suspense>
