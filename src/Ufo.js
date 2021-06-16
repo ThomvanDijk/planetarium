@@ -6,18 +6,32 @@ source: https://sketchfab.com/3d-models/ufo-ef687f700ed64686834aaa912ac0e70f
 title: U.F.O.
 */
 
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useCallback } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 
 export default function Model(props) {
   const group = useRef()
   const { nodes, materials, animations } = useGLTF('assets/ufo/scene.gltf')
   const { actions } = useAnimations(animations, group)
+  
+  let hover = true
 
   useEffect(() => {
-    console.log(actions); // hover flight abduction_rings
-    actions.flight.play();
+    // Actions: hover flight abduction_rings
+    actions.hover.play()
   });
+
+  const handleClick = useCallback(e => {
+    hover = !hover
+    console.log(hover)
+    if (hover) {
+      actions.abduction_rings.stop()
+      actions.hover.play()
+    } else {
+      actions.hover.stop()
+      actions.abduction_rings.play()
+    }
+  })
 
   return (
     <group ref={group} {...props} dispose={null}>
@@ -26,6 +40,7 @@ export default function Model(props) {
           <group scale={[0.01, 0.01, 0.01]}>
             <primitive object={nodes.GLTF_created_0_rootJoint} />
             <skinnedMesh
+              onClick={handleClick}
               geometry={nodes.Object_17.geometry}
               material={materials.material_0}
               skeleton={nodes.Object_17.skeleton}

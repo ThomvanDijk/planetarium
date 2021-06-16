@@ -72,9 +72,8 @@ function App() {
         <Moon position={[-1, 0, -1]}/>
         <Earth position={[0, 0, -1]}/>
 
-        {/* <Foguete position={[0, 0, -1]} scale={0.01}/> */}
         <Spaceship position={[0, 0, -1]} scale={0.1}/>
-        <Ufo position={[0, 0, -4]} scale={0.25}/>
+        <Ufo position={[0, 0, 0]} scale={0.25}/>
         <OrbitControls/>
       </Suspense>
     </Canvas>
