@@ -3,14 +3,8 @@ import { Suspense, useRef } from 'react'
 // import { ARCanvas } from '@react-three/xr'
 import { OrbitControls, useTexture, Sphere, useGLTF } from '@react-three/drei'
 
-// import moon_texture from 'assets/textures/moon.png'
-// import earth_texture from 'assets/textures/earth.jpg'
-// import earth_clouds_texture from 'assets/textures/earth_clouds.jpg'
-
 import Spaceship from './Spaceship'
-import Yeti from './Yeti'
 import Ufo from './Ufo'
-import Foguete from './Foguete'
 
 const earth_diameter = 0.4
 

@@ -11,12 +11,12 @@ import { useGLTF, useAnimations } from '@react-three/drei'
 
 export default function Model(props) {
   const group = useRef()
-  const { nodes, materials, animations } = useGLTF('assets/ufo_model/scene.gltf')
+  const { nodes, materials, animations } = useGLTF('assets/ufo/scene.gltf')
   const { actions } = useAnimations(animations, group)
 
   useEffect(() => {
     console.log(actions); // hover flight abduction_rings
-    actions.hover.play();
+    actions.flight.play();
   });
 
   return (
@@ -37,4 +37,4 @@ export default function Model(props) {
   )
 }
 
-useGLTF.preload('assets/ufo_model/scene.gltf')
+useGLTF.preload('assets/ufo/scene.gltf')
