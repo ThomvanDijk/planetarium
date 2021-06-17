@@ -8,30 +8,48 @@ title: U.F.O.
 
 import React, { useRef, useEffect, useCallback } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber';
 
 export default function Model(props) {
   const group = useRef()
   const { nodes, materials, animations } = useGLTF('assets/ufo/scene.gltf')
   const { actions } = useAnimations(animations, group)
   
-  let hover = true
+  let move = true
+  let angle = 0
+  const radius = 0.4
+  const speed = 0.01
 
   useEffect(() => {
     // Actions: hover flight abduction_rings
     actions.hover.play()
   });
 
-  const handleClick = useCallback(e => {
-    hover = !hover
+  useFrame(({ clock }) => {
+    if (move) {
+      // Move ufo vertically around the given position on the y and z plane
+      angle += speed
+      group.current.position.y = props.position[1] + Math.sin(angle) * radius
+      group.current.position.z = props.position[2] + Math.cos(angle) * radius
+    }
 
-    if (hover) {
+    // Rotate ufo towards the origin of the rotation (center of earth)
+    const rotation_x = Math.atan2(props.position[2] - group.current.position.z, props.position[1] - group.current.position.y)
+    group.current.rotation.x = rotation_x + Math.PI
+
+  });
+
+  const handleClick = useCallback(e => {
+    move = !move
+
+    if (move) {
       actions.abduction_rings.stop()
       actions.hover.play()
-      group.current.position.y += 0.2 // Animation offset, blame the artist
+      // group.current.position.y += 0.2 // Animation offset, blame the artist
     } else {
       actions.hover.stop()
       actions.abduction_rings.play()
-      group.current.position.y -= 0.2
+      // group.current.position.y -= 0.2
     }
   })
 

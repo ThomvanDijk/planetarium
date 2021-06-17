@@ -8,7 +8,7 @@ title: low poly space ship
 
 import React, { useRef, useCallback } from 'react'
 import { useGLTF } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber'
 // import { Interactive } from '@react-three/xr'
 
 export default function Model(props) {
