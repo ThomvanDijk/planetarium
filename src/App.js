@@ -1,7 +1,7 @@
-import { useFrame, Canvas } from '@react-three/fiber'
+import { useFrame } from '@react-three/fiber'
 import { Suspense, useRef } from 'react'
-// import { ARCanvas } from '@react-three/xr'
-import { OrbitControls, useTexture, Sphere, useGLTF } from '@react-three/drei'
+import { ARCanvas } from '@react-three/xr'
+import { OrbitControls, useTexture, Sphere } from '@react-three/drei'
 
 import Spaceship from './Spaceship'
 import Ufo from './Ufo'
@@ -49,21 +49,9 @@ function Earth(props) {
   )
 }
 
-function Model(props) {
-  const { nodes, materials } = useGLTF('low_poly_rock/scene.gltf')
-  const texture = useTexture('low_poly_rock/textures/lambert1_baseColor.png')
-
-  return (
-    // <primitive object={gltf.scene} />
-    <mesh geometry={nodes.pCube1_lambert1_0.geometry} material={materials.lambert1} >
-      <meshBasicMaterial attach="material" map={texture} />
-    </mesh>
-  )
-}
-
 function App() {
   return (
-    <Canvas style={{height:900}}>
+    <ARCanvas style={{height:900}}>
       <Suspense fallback={null}>
         {/* <pointLight position={[0, 200, 200]} intensity={2} color='#97ffff' /> */}
         <ambientLight intensity={1} />
@@ -72,11 +60,11 @@ function App() {
         <Moon position={[-1, 0, -1]}/>
         <Earth position={[0, 0, -1]}/>
 
-        <Spaceship position={[0, 0, -1]} scale={0.1}/>
+        <Spaceship position={[0, 0, -1]} scale={0.05}/>
         <Ufo position={[0, 0, -1]} scale={0.05}/>
         <OrbitControls/>
       </Suspense>
-    </Canvas>
+    </ARCanvas>
   )
 }
 

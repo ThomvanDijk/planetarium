@@ -6,10 +6,10 @@ source: https://sketchfab.com/models/587941c9c11742c6b82dfb99e7b210b9
 title: low poly space ship
 */
 
-import React, { useRef, useCallback } from 'react'
+import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-// import { Interactive } from '@react-three/xr'
+import { useInteraction } from '@react-three/xr'
 
 export default function Model(props) {
   const group = useRef()
@@ -17,11 +17,11 @@ export default function Model(props) {
 
   const rotationOffset = 1
   let new_rotation = 2 * Math.PI - rotationOffset
-  const radius = 3
+  const radius = 1.5
 
   useFrame(({ clock }) => {
     // Move spaceship horizontally around the given position on the x and z plane
-    const angle = clock.getElapsedTime() / 2;
+    const angle = clock.getElapsedTime() / 2
     group.current.position.x = props.position[0] + Math.sin(angle) * radius
     group.current.position.z = props.position[2] + Math.cos(angle) * radius
 
@@ -35,16 +35,14 @@ export default function Model(props) {
     }
   });
 
-  const handleClick = useCallback(e => {
-    // Set a new rotation for the spaceship to rotate to
+  useInteraction(group, 'onSelect', () => {
     new_rotation = group.current.rotation.z + 2 * Math.PI
   })
 
   return (
     <group ref={group} {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
-        <mesh 
-          onClick={handleClick} 
+        <mesh
           geometry={nodes.ship_1.geometry} 
           material={materials.Material} 
         />
