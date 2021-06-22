@@ -46,11 +46,9 @@ export default function Model(props) {
     if (move) {
       actions.abduction_rings.stop()
       actions.hover.play()
-      // group.current.position.y += 0.2 // Animation offset, blame the artist
     } else {
       actions.hover.stop()
       actions.abduction_rings.play()
-      // group.current.position.y -= 0.2
     }
   })
 
