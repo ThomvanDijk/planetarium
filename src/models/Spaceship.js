@@ -4,6 +4,7 @@ author: chrisonciuconcepts (https://sketchfab.com/chrisonciuconcepts)
 license: CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 source: https://sketchfab.com/models/587941c9c11742c6b82dfb99e7b210b9
 title: low poly space ship
+Extended by: https://github.com/ThomvanDijk
 */
 
 import React, { useRef } from 'react'
@@ -15,15 +16,15 @@ export default function Model(props) {
   const group = useRef()
   const { nodes, materials } = useGLTF('assets/spaceship/scene.gltf')
 
-  const rotationOffset = 1
+  const rotationOffset = 1 // This offset tilts the spaceship slightly
   let new_rotation = 2 * Math.PI - rotationOffset
-  const radius = 1.5
 
+  // Subscribe to the render-loop, runs every frame
   useFrame(({ clock }) => {
     // Move spaceship horizontally around the given position on the x and z plane
-    const angle = clock.getElapsedTime() / 2
-    group.current.position.x = props.position[0] + Math.sin(angle) * radius
-    group.current.position.z = props.position[2] + Math.cos(angle) * radius
+    const angle = clock.getElapsedTime() * props.speed
+    group.current.position.x = props.position[0] + Math.sin(angle) * props.orbit_radius
+    group.current.position.z = props.position[2] + Math.cos(angle) * props.orbit_radius
 
     // Rotate spaceship towards the origin of the rotation
     const rotation_y = Math.atan2(props.position[0] - group.current.position.x, props.position[2] - group.current.position.z)

@@ -6,9 +6,8 @@ export default function Earth(props) {
   const texture = useTexture('assets/textures/earth.jpg')
   const clouds_texture = useTexture('assets/textures/earth_clouds.jpg')
 
-  // Cloud height is around 12 km at it's highest point.
-  // Earths diameter is 12,756 km at the equator.
-  // Therefore the magnification factor is: (12,756 + 24) / 12,756 = 1,001881467544685
+  // The cloud height is around 12 km at it's highest point and the earths diameter is 12,756 km at 
+  // the equator. Therefore the magnification factor is: (12,756 + 24) / 12,756 = 1,001881467544685
   const cloud_diameter = props.diameter * 1.001881467544685
 
   const ref = useRef()

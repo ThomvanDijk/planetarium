@@ -4,6 +4,7 @@ author: SpiderCraft9972 (https://sketchfab.com/oscar.lopez.riviello)
 license: CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 source: https://sketchfab.com/3d-models/ufo-ef687f700ed64686834aaa912ac0e70f
 title: U.F.O.
+Extended by: https://github.com/ThomvanDijk
 */
 
 import React, { useRef, useEffect } from 'react'
@@ -18,25 +19,24 @@ export default function Model(props) {
   
   let move = true
   let angle = 0
-  const radius = 0.4
-  const speed = 0.01
 
   useEffect(() => {
     // Actions: hover flight abduction_rings
     actions.hover.play()
   });
 
-  useFrame(({ clock }) => {
+  // Subscribe to the render-loop, runs every frame
+  useFrame(() => {
     if (move) {
-      // Move ufo vertically around the given position on the y and z plane
-      angle += speed
-      group.current.position.y = props.position[1] + Math.sin(angle) * radius
-      group.current.position.z = props.position[2] + Math.cos(angle) * radius
+      // Move ufo vertically around the given position on the x and y plane
+      angle += props.speed
+      group.current.position.y = props.position[1] + Math.sin(angle) * props.orbit_radius
+      group.current.position.x = props.position[0] + Math.cos(angle) * props.orbit_radius
     }
 
     // Rotate ufo towards the origin of the rotation (center of earth)
-    const rotation_x = Math.atan2(props.position[2] - group.current.position.z, props.position[1] - group.current.position.y)
-    group.current.rotation.x = rotation_x + Math.PI
+    const rotation_z = Math.atan2(props.position[1] - group.current.position.y, props.position[0] - group.current.position.x)
+    group.current.rotation.z = rotation_z + Math.PI / 2
 
   });
 
