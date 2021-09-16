@@ -20,10 +20,11 @@ export default function Model(props) {
   let move = true
   let angle = 0
 
+  // Runs when component is initialised or if actions is updated
   useEffect(() => {
     // Actions: hover flight abduction_rings
     actions.hover.play()
-  });
+  }, [actions]);
 
   // Subscribe to the render-loop, runs every frame
   useFrame(() => {

@@ -7,11 +7,13 @@ import Ufo from './models/Ufo'
 import Earth from './celestial_bodies/Earth'
 import Moon from './celestial_bodies/Moon'
 
-const earth_diameter = 0.4
-const earth_position = [0, 0, -1]
-
 export default function App() {
+  const earth_diameter = 0.4
+  const earth_position = [0, 0, -1]
+  
   return (
+    // The height property is css code and used to make the
+    // canvas element higher when AR is not active
     <ARCanvas style={{height:900}}>
       <Suspense fallback={null}>
         <pointLight position={[0, 200, 200]} intensity={1} />

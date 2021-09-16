@@ -16,8 +16,9 @@ export default function Model(props) {
   const group = useRef()
   const { nodes, materials } = useGLTF('assets/spaceship/scene.gltf')
 
-  const rotationOffset = 1 // This offset tilts the spaceship slightly
-  let new_rotation = 2 * Math.PI - rotationOffset
+  const rotation_offset = 1 // This offset tilts the spaceship slightly
+  const rotation_speed = 0.1
+  let new_rotation = 2 * Math.PI - rotation_offset
 
   // Subscribe to the render-loop, runs every frame
   useFrame(({ clock }) => {
@@ -27,12 +28,13 @@ export default function Model(props) {
     group.current.position.z = props.position[2] + Math.cos(angle) * props.orbit_radius
 
     // Rotate spaceship towards the origin of the rotation
-    const rotation_y = Math.atan2(props.position[0] - group.current.position.x, props.position[2] - group.current.position.z)
+    const rotation_y = Math.atan2(props.position[0] - group.current.position.x, 
+      props.position[2] - group.current.position.z)
     group.current.rotation.y = rotation_y - Math.PI / 2
 
     // Rotate spaceship if clicked
     if (group.current.rotation.z <= new_rotation) {
-      group.current.rotation.z += 0.1
+      group.current.rotation.z += rotation_speed
     }
   });
 
